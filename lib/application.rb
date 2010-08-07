@@ -26,7 +26,7 @@ class Application
   def run    
     # catch CTRL-C
     trap('INT') {
-      puts "\nrweb will self destruct in...3...2...1\n"
+      puts "\ntime for the beast to take a nap...\n"
       @socket.close if @socket && !@socket.closed?
       exit(69)
     }

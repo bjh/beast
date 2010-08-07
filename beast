@@ -4,19 +4,25 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/' ))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib' ))
 
 require 'optparse' 
+require 'logger'
 require 'application'
 
+$L = Logger.new($stdout)
+
+# $L.debug "debug message"
+# $L.info "info message"
+# $L.warn "warn message"
 
 options = {}
 
 optparse = OptionParser.new do|opts|
  # Set a banner, displayed at the top
  # of the help screen.
- opts.banner = "Usage: rweb [options] ..."
+ opts.banner = "Usage: beast [options] ..."
 
  # Define the options, and what they do
   options[:directory] = File.expand_path(File.dirname(__FILE__))
-  opts.on( '-d DIRECTORY', '--directory', 'directory to serve as website' ) do |path|
+  opts.on( '-d DIRECTORY', '--directory', 'directory for the beast to chew on' ) do |path|
     path.strip!
     
     puts "PATH; #{path}"
@@ -27,10 +33,11 @@ optparse = OptionParser.new do|opts|
     end
   end
  # 
- # options[:quick] = false
- # opts.on( '-q', '--quick', 'Perform the task quickly' ) do
- #   options[:quick] = true
- # end
+  options[:port] = 6969
+  opts.on( '-p PORT', '--port', 'port number for the beast to bite on to. default is 6969' ) do |port|
+    puts "PORT: #{port}"
+    options[:port] = port
+  end
  # 
  # options[:logfile] = nil
  # opts.on( '-l', '--logfile FILE', 'Write log to FILE' ) do|file|
@@ -57,7 +64,7 @@ ARGV.each do|f|
 end
 
 
-app = Application.new options[:directory]
+app = Application.new(options[:directory], options[:port])
 
-puts "rweb is now serving up [#{options[:directory]}], nice and hot for you." 
+puts "the beast is now serving up [#{options[:directory]}] on port #{options[:port]}, nice and hot for you." 
 app.run
