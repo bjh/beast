@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby 
+
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/' ))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib' ))
+
+require 'optparse' 
+require 'application'
+
+
+options = {}
+
+optparse = OptionParser.new do|opts|
+ # Set a banner, displayed at the top
+ # of the help screen.
+ opts.banner = "Usage: rweb [options] ..."
+
+ # Define the options, and what they do
+  options[:directory] = File.expand_path(File.dirname(__FILE__))
+  opts.on( '-d DIRECTORY', '--directory', 'directory to serve as website' ) do |path|
+    path.strip!
+    
+    puts "PATH; #{path}"
+    options[:directory] = path
+    
+    if path == '.' || path == ""
+      options[:directory] = File.expand_path(File.dirname(__FILE__))
+    end
+  end
+ # 
+ # options[:quick] = false
+ # opts.on( '-q', '--quick', 'Perform the task quickly' ) do
+ #   options[:quick] = true
+ # end
+ # 
+ # options[:logfile] = nil
+ # opts.on( '-l', '--logfile FILE', 'Write log to FILE' ) do|file|
+ #   options[:logfile] = file
+ # end
+
+ # show help
+ opts.on( '-h', '--help', 'Display this screen' ) do
+   puts opts
+   exit
+ end
+end
+
+begin
+  optparse.parse!
+rescue
+  # show help/usage
+  puts optparse
+  exit
+end
+
+ARGV.each do|f|
+  puts "ARGV #{f}"
+end
+
+
+app = Application.new options[:directory]
+
+puts "rweb is now serving up [#{options[:directory]}], nice and hot for you." 
+app.run
