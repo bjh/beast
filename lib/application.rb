@@ -11,8 +11,8 @@ class Application
   
   attr_writer :suppress_cookie_header_output
   
-  def initialize(site, host='localhost', port=6969)
-    
+  def initialize(site, port, host='localhost')
+
     @site = site
     @host = host
     @port = port
@@ -26,8 +26,8 @@ class Application
   def run    
     # catch CTRL-C
     trap('INT') {
-      puts "\nrweb closing in...3...2...1"
-      @socket.close if not @socket.closed?
+      puts "\nrweb will self destruct in...3...2...1\n"
+      @socket.close if @socket && !@socket.closed?
       exit(69)
     }
     
