@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby -w
+require 'ansi'
+require 'logger'
+
+# def expensive_error_report
+#   sleep 3  # Heavy Computation Simulation (patent pending)
+#   "YOU BROKE IT!"
+# end
+# 
+# log       = Logger.new(STDOUT)
+# log.level = Logger::INFO  # set out output level above the DEBUG default
+# 
+# log.debug("We're not in the verbose debug mode.")
+# log.info("We do see informative logs though.")
+# if log.error?  # check that this will be printed, before waste time
+#   log.error(expensive_error_report)
+# end
+# 
+# def expensive_error_report
+#   sleep 3
+#   "YOU BROKE IT!"
+# end
+# 
+# log                 = Logger.new(STDOUT)
+# log.level           = Logger::INFO
+# log.datetime_format = "%Y-%m-%d %H:%M "  # simplify time output
+# 
+# log.debug("We're not in the verbose debug mode.")
+# log.info("We do see informative logs though.")
+# if log.error?
+#   log.error(expensive_error_report)
+# end
+
+# Build a Logger::Formatter subclass.
+class PrettyErrors < Logger::Formatter
+  # Provide a call() method that returns the formatted message.
+  def call(severity, time, program_name, message)
+    if severity == "ERROR"
+      print_message = ANSI.color(:black, :bold => true) {": "}
+      print_message << ANSI.color(:red, :bold => true) {
+        "#{message}"
+      }
+      [border, print_message, border].join("\n") + "\n"
+    else
+      super
+    end
+  end
+  def border(n=1)
+    "-" * n
+  end  
+end
+
+# def expensive_error_report(run=true)
+#   if run 
+#     "unicorn poopsicles"
+#   else
+#     "nobody is home"
+#   end
+# end
+
+log           = Logger.new(STDOUT)
+#log.level     = Logger::INFO
+log.formatter = PrettyErrors.new  # Install custom formatter!
+
+log.debug("We're not in the verbose debug mode.")
+log.info("We do see informative logs though.")
+log.error("do i get this magic?.")
+#if log.error?
+#  log.error {expensive_error_report(false)}
+#end
