@@ -3,14 +3,7 @@ require 'logger'
 module Lumber
   class ColoredOutput < Logger::Formatter
     
-    attr_writer :showtime
-    
-    @showtime = true
-    @time = ''
-    
     def call(severity, time, program_name, message)
-      @time = time.strftime("%y-%m-%d %H:%M")
-      
       severity = "_#{severity.downcase}".to_sym
       
       begin
@@ -22,15 +15,10 @@ module Lumber
     
   private  
     def _format(message)
-      t = if @showtime
-        " [#{@time}] "
-      else
-        ''
-      end
+      msg = colon() + message
       
-      msg = colon() + t + message
-      [border(), msg, border()].join("\n") + "\n"
       #[border(), msg, border()].join("\n") + "\n"
+      "#{msg}\n"
     end
 
     def _error(message)

@@ -9,7 +9,7 @@ module Headers
     if @headers[key.to_sym]
       %{#{@headers[key.to_sym]}: #{value}\r\n}
     else
-      puts "ERROR: no header for type: #{key}"
+      Lumber::error "no header for type: #{key}"
       ''
     end
   end

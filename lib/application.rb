@@ -2,7 +2,7 @@ require 'socket'
 require 'mimetypes'
 require 'headers'
 require 'status'
-
+require 'lumber'
 
 class Application
   include MimeTypes
@@ -26,7 +26,8 @@ class Application
   def run    
     # catch CTRL-C
     trap('INT') {
-      puts "\ntime for the beast to take a nap...\n"
+      #puts "\ntime for the beast to take a nap...\n"
+      Lumber::info "\ntime for the beast to take a nap...\n"
       @socket.close if @socket && !@socket.closed?
       exit(69)
     }
@@ -58,8 +59,10 @@ class Application
         #print_headers(headers)
         requesting = @site+@path
         
-        puts "HTTP METHOD: #{@method}"
-        puts "REQUEST PATH: #{requesting}"        
+        #puts "HTTP METHOD: #{@method}"
+        #puts "REQUEST PATH: #{requesting}"
+        Lumber::info "HTTP METHOD: #{@method}"
+        Lumber::info "REQUEST PATH: #{requesting}"
         
         if get?
           if File.file? requesting

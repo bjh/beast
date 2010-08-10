@@ -32,14 +32,14 @@ private
      opts.banner = "Usage: beast [options] ..."
 
      # Define the options, and what they do
-      @options[:directory] = File.expand_path(File.dirname(__FILE__))
+      @options[:directory] = File.expand_path(File.join(File.dirname(__FILE__), '../' ))
       opts.on( '-d DIRECTORY', '--directory', 'directory for the beast to chew on' ) do |path|
         path.strip!
     
         @options[:directory] = path
     
         if path == '.' || path == ""
-          @options[:directory] = File.expand_path(File.dirname(__FILE__))
+          @options[:directory] = File.expand_path(File.join(File.dirname(__FILE__), '../' ))
         end
       end
 
