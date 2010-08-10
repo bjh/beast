@@ -22,13 +22,12 @@ module Lumber
     
   private  
     def _format(message)
-      #msg = colon() << message
-      
       t = if @showtime
         " [#{@time}] "
       else
         ''
       end
+      
       msg = colon() + t + message
       [border(), msg, border()].join("\n") + "\n"
       #[border(), msg, border()].join("\n") + "\n"
