@@ -8,6 +8,7 @@ describe Logger do
   end
   
   it "should have colored output" do
+    Lumber::showtime(true)
     Lumber::info "info"
     Lumber::warn "warning"
     Lumber::debug "debug"

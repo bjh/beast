@@ -6,12 +6,23 @@ begin
   require 'ansi'
   $ansi_included = true
 rescue
-  puts "need to install gem ssoroka-ansi to get colored log output"
+  puts "need to 'gem install ssoroka-ansi' to get colored log output"
     $ansi_included = false
 end
 
 module Lumber
   @logger = Logger.new($stdout)
+  @logger.datetime_format = "%H:%M "
+  
+  def self.showtime(bool)
+    if @logger.formatter.is_a? Lumber::ColoredOutput
+      @logger.formatter.showtime = bool
+    end
+  end
+  
+  def self.date_time_format(format)
+    @logger.datetime_format = format
+  end
   
   if $ansi_included
     @logger.formatter = Lumber::ColoredOutput.new

@@ -1,0 +1,17 @@
+-
+[30;1m: [m[34;1minfo[m
+-
+-
+[30;1m: [m[33;1mwarning[m
+-
+-
+[30;1m: [m[36;1mdebug[m
+-
+-
+[30;1m: [m[31;1merror[m
+-
+.
+
+Finished in 0.011286 seconds
+
+1 example, 0 failures
