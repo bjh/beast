@@ -14,11 +14,11 @@ module Lumber
   @logger = Logger.new($stdout)
   @logger.datetime_format = "%H:%M "
   
-  def self.showtime(bool)
-    if @logger.formatter.is_a? Lumber::ColoredOutput
-      @logger.formatter.showtime = bool
-    end
-  end
+  # def self.showtime(bool)
+  #   if @logger.formatter.is_a? Lumber::ColoredOutput
+  #     @logger.formatter.showtime = bool
+  #   end
+  # end
   
   def self.date_time_format(format)
     @logger.datetime_format = format
