@@ -22,23 +22,23 @@ module Lumber
     end
 
     def _error(message)
-      _format(ANSI.color(:red, :bold => true) { "#{message}" })
+      _format("#{message}".colorize(:red))
     end
 
     def _info(message)
-      _format(ANSI.color(:blue, :bold => true) { "#{message}" })
+      _format("#{message}".colorize(:blue))
     end
 
     def _warn(message)
-      _format(ANSI.color(:yellow, :bold => true) { "#{message}" })
+      _format("#{message}".colorize(:yellow))
     end
 
     def _debug(message)
-      _format(ANSI.color(:cyan, :bold => true) { "#{message}" })
+      _format("#{message}".colorize(:cyan))
     end
 
     def colon
-      ANSI.color(:black, :bold => true) {": "}
+      ": ".colorize(:black)
     end
 
     def border(n=1)

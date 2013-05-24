@@ -2,14 +2,6 @@ require 'rubygems'
 require 'logger'
 require 'coloredoutput'
 
-begin
-  require 'ansi'
-  $ansi_included = true
-rescue
-  puts "need to 'gem install ssoroka-ansi' to get colored log output"
-  $ansi_included = false
-end
-
 module Lumber
   @logger = Logger.new($stdout)
   @logger.datetime_format = "%H:%M "
